@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>豆瓣读书</title>
+    <link rel="stylesheet">
+    <style type="text/css">
+        *{
+            margin:0;
+            padding:0;
+            list-style: none;
+            text-decoration: none;
+        }
+        .wrapper{
+            font-size: 12px;
+            color: #d5d5d5;
+            background-color: #555;
+        }
+        .navigation-left{
+             color: #d5d5d5;
+        }
+        .navigation-left ul li{
+            display: inline-block;
+            zoom: 1;
+            line-height: 28px;
+            font-size: 12px;
+            vertical-align: baseline;
+        }
+        .navigation-left ul li a{
+            display: inline-block;
+            zoom: 1;
+            padding: 0 12px;
+            height: 28px;
+            color: #d5d5d5;
+        }
+        .navigation-left ul li a:hover{
+            color: #fff;
+        }
+        .nav-info{
+            float: right;
+            margin: 0 12px 0 0;
+            line-height: 28px;
+        }
+        .nav-info a{
+            display: inline-block;
+            zoom: 1;
+            margin: 0;
+            padding: 0 12px;
+            height: 28px;
+            color: #d5d5d5;
+        }
+        .douban-app{
+            position: relative;
+            float: right;
+            margin-right: 5px;
+            line-height: 28px;
+        }
+        .douban-app a{
+            display: inline-block;
+            zoom: 1;
+            padding: 0 8px;
+            height: 28px;
+            color: #d5d5d5;
+        }
+        .douban-app a:hover,
+        .nav-info a:hover{
+            color: #fff;
+        }
+        #nav-sns{
+            position: relative;
+            zoom: 1;
+            background: #edf4ed;
+            width: 100%;
+            height:74px;
+            min-width: 950px;
+            overflow: hidden;
+            zoom: 1;
+            margin-bottom: 40px;
+        }
+        .nav-wrapper{
+            position: relative;
+            zoom: 1;
+            background: #edf4ed;
+            width: 100%;
+            min-width: 949px;
+            overflow: hidden;
+            zoom: 1;
+            margin-bottom: 40px;
+        }
+        .nav-primary{
+            overflow: hidden;
+            padding-top: 12px;
+            zoom: 1;
+            position: relative;
+            padding: 10px 0 5px;
+            width: 950px;
+            margin: 0 auto;
+        }
+        .nav-search{
+            position: absolute;
+            right: 0;
+            zoom:1;
+            padding: 10px 0 15px 0;
+        }
+        .nav-search .inp{
+            width: 278px;
+            height: 28px;
+            background: #fff;
+            border: 1px solid #e1e9e1;
+            text-align: left;
+            float: left;
+        }
+        #inp-query{
+            margin: 0;
+            width: 242px;
+            height: 28px;
+            text-align: left;
+                background: #fff;
+            padding-left:10px;
+            border: none;
+        }
+        .inp-btn{
+            position: absolute;
+            left: auto;
+            top: 10px;
+            right: 0;
+            width: 30px;
+            height: 28px;
+            border: 1px solid #e1e9e1;
+            border-left: none;
+            background-color: #fff;
+            font-size: 0;
+            overflow: hidden;
+            zoom:1;
+        }
+        .inp-btn input{
+            width: 30px;
+            height: 28px;
+            line-height: 100px;
+            background:transparent url(db1.png) no-repeat 50% 50%;
+            color: transparent;
+            cursor: pointer; 
+            border: none;
+        }
+        .nav-logo{
+            width: 184px;
+            height: 57px;
+            background-position: 0 10px;
+            float: left;
+            margin: 0 13px 0 0;
+            background: url(db2.png) no-repeat 0 12px;
+        }
+        .nav-items{
+            float: left;
+            margin-top: 15px;
+        }
+        .nav-items ul li{
+            margin-right: 20px;
+            font-size: 15px;
+            display:inline;
+        }
+        .nav-items ul li a{
+                color: #072;
+        }
+        .nav-items ul li a:hover{
+             color: #fff;
+             background:#074;  
+             cursor: pointer;
+            text-decoration: none;
+        }
+        #wrapper{
+            width: 950px;
+            margin: 0 auto;
+            display: block;
+        }
+        #content{
+            min-height: 420px;
+        }
+        h1{
+            display: none;
+            font-size: 25px;
+            font-weight: bold;
+            color: #494949;
+            margin: 0;
+            padding: 0 0 15px 0;
+        }
+        .article{
+            float: left;
+            width: 590px;
+            padding-right: 40px;
+            zoom:1;
+            display: block;
+        }
+        .mod-search{
+            position: relative;
+            overflow: hidden;
+            zoom: 1;
+            margin-bottom: 28px;
+            background-color: #f7f7f8;
+            padding: 7px;
+        }
+        .mod-search .inp{
+            height: 30px;
+            cursor: text;
+            background: #fff;
+            border: 1px solid #e1e9e1;
+            text-align: left;   
+        }
+        .mod-search .inp input{
+            background: #fff;
+            width: 94%;
+            margin: 0;
+            text-align: left;
+            height: 30px;
+            padding-left: 6px;
+            font-size: 12px;
+            border:none;
+        }
+        .mod-search .inp-btn{
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 30px;
+            height: 30px;
+            border: 1px solid #e1e9e1;
+            border-left: none;
+            background-color: #fff;
+            font-size: 0;
+            overflow: hidden;
+            zoom:1;
+        }
+        .mod-search .inp-btn input{
+            width: 30px;
+            height: 30px;
+            padding: 35px 0 0 0;
+            overflow: hidden;
+            line-height: 100px;
+            background:transparent url(db1.png) no-repeat 50% 50%;
+            color: transparent;
+            cursor: pointer; 
+        }
+
+        .aside{
+            float:left;
+            left:950px;
+            width:310px;
+            height:638px;
+            
+        }
+        .mod-top{
+            margin-top: 40px;
+        }
+        .mod-top .hd{
+            margin-bottom: 15px;
+        }
+        .mod-top .hd .more a{
+            float: right;
+            margin-top: 2px;
+            font-size: 12px;
+            zoom: 1;
+            font-size: 12px;
+            color: #45618c;
+        }
+        .mod-top .hd h2{
+            padding-bottom: 10px;
+            margin: 0;
+            border-bottom: 1px solid #f0f0f0;
+            color: #45618c;
+            font-size: 16px;
+        }
+        .mod-top img{
+            display: inline-block;
+            width:310px;
+        }
+
+        .mod-bottom img{
+            position: relative;
+            margin: 0px 0px 20px;
+            display: inline-block;
+            width: 310px;
+            height: 250px;
+        }
+        .search-report{
+            margin-top: 15px;
+            margin-right: 10px;
+            float: none;
+            font-size: 12px;
+        }
+        .search-report a{
+            color: #bbb;
+        }
+        .search-report a:hover{
+                color: #666699;
+            text-decoration: none;
+        }
+
+        .search-result{
+                overflow: hidden;
+            zoom: 1;
+        }
+        .topic-promotion{
+            font-size: 13px;
+            border-bottom: 1px dashed #CCC;
+            padding-bottom: 15px;
+            margin-bottom: 10px
+        }
+        .topic-promotion a{
+            display: inline-block;
+            padding: 3px 23px;
+            margin-right: 10px;   
+            font-size: 13px;
+            background: #F5F5F5 url(douban1.gif) no-repeat right 0;
+            color: #666699;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .topic-promotion span{
+            font-size: 12px;
+            color: gray;
+            cursor: pointer;
+        }
+        .result-list{
+            margin-bottom: 27px;
+            overflow: hidden;
+            zoom: 1;
+            padding-right: 3px;
+        }
+        .result{
+            position: relative;
+            width: 100%;
+            zoom: 1;
+            padding-top: 20px;
+            margin: -1px 0 17px;
+            border-top: 1px dashed #ccc;
+        }
+        .r-pic{
+                float: right;
+            width: 62px;
+            text-align: right;
+            position: relative;
+        }
+        .r-pic a{
+                color: #37a;
+            text-decoration: none;
+        }
+        .r-pic a img{
+            width:48px;
+            height:71px;
+        }
+        .r-content{
+            overflow: hidden
+        }
+        .r-content .title{
+            margin-bottom: 3px;
+            color: #5d5d5d;
+            font-size: 12px;
+        }
+        .r-content .title h3{
+            width: 85%;
+            height: auto;
+            margin: -4px 0 6px 0;
+            word-wrap: break-word;
+            background: transparent;
+            line-height: 1.8;
+            font-size: 14px;
+            color: #666666;
+        }
+        .r-content .title a{
+            color: #37a;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .r-content p {
+            width: 425px;
+            height: 54px;
+            line-height: 18px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .allstar {
+            display: inline-block;
+            width: 55px;
+            height: 11px;
+            background: url(./xing.png) no-repeat;
+        }
+        .rating-num{
+                padding-left: 0;
+                    color: #e09015;
+            font-size: 12px;
+            padding: 0 3px;
+        }
+        .rating-num + span{
+                color: #5d5d5d;
+                font-size: 12px;
+        }
+        .subject-cast{
+                margin-left: 10px;
+        }
+        .title p{
+            margin: 0;
+            color: #999;
+        }
+    </style>
+    <script src="./jquery.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="nav-info">
+            <a href="#">登陆</a>
+            <a href="#">注册</a>
+        </div>
+        <div class="douban-app">
+            <a href="#">下载豆瓣客户端</a>
+        </div>
+        <div class="navigation-left">
+        <ul>
+            <li><a href="#">豆瓣</a></li>
+            <li><a href="#">读书</a></li>
+            <li><a href="#">电影</a></li>
+            <li><a href="#">音乐</a></li>
+            <li><a href="#">同城</a></li>
+            <li><a href="#">小组</a></li>
+            <li><a href="#">FM</a></li>
+            <li><a href="#">东西</a></li>
+            <li><a href="#">市集</a></li>
+            <li><a href="#">更多</a></li>
+        </ul>
+        </div>
+    </div>
+    <div id="nav-sns">
+        <div class="nav-wrap">
+        <div class="nav-primary">
+            <div class="nav-search">
+                        <div class="inp">
+                            <input id="inp-query"  name="q" size="22" title="搜索搜索你感兴趣的内容和人..." maxlength="60" autocomplete="off" value="小王子" placeholder="搜索你感兴趣的内容和人...">
+                        </div>
+                        <div class="inp-btn">
+                            <input  class="submit-a" type="submit" value="搜索">
+                        </div>
+            </div>
+            <div class="nav-logo"></div>
+            <div class="nav-items">
+                <ul>
+                    <li><a href="#">首页</a></li>
+                    <li><a href="#">浏览发现</a></li>
+                    <li><a href="#">移动应用</a></li>
+                    <li><a href="#">游戏</a></li>
+                    <li><a href="#">线上活动</a></li>
+                </ul>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div id="wrapper">
+        <div class="grider">
+            <div class="article">
+                <div class='mod-search'>
+                    <div class="inp"><input placeholder="搜索你感兴趣的内容和人" autofocus="" name="q" size="22" maxlength="60" value="小王子" class="inp-zxc"></div>
+                    <div class="inp-btn"><input type="submit" value="搜索">
+                    </div>
+                </div>
+            
+                <div class="search-result">
+                    <div class="topic-promotion">
+                        <a target="_blank" href="https://www.douban.com/tag/%E5%B0%8F%E7%8E%8B%E5%AD%90/?source=search" class="new-icon">小王子</a>
+                        <span class="add">关于小王子的精华内容</span>
+                    </div>
+
+                    <div class="result-list">
+                        <div class="result-content">
+                        </div>
+                        <div class="result-list-ft">
+                            <a href="#more" class="search_more" data-q="小王子" data-start="20" data-subtype="item">显示更多</a>
+                        </div>
+                    </div>
+                    <h2>豆瓣相关用户</h2>
+                </div>
+                <div class="back-to-top"></div>
+            </div>
+            <div class="aside">
+                <div class="mod-top">
+                    <div class='hd'>
+                        <span class="more"><a href="#">>更多</a></span>
+                        <h2>豆瓣市集的推荐</h2>
+                    </div>
+                    <img src="xiaoxiao.jpg" alt="">
+                </div>
+                <div class="search-report"><a target="_blank" href="https://www.douban.com/misc/search_report?cat=&amp;">&gt; 对结果不满意？让我们知道</a></div>
+            </div>
+        </div>
+    </div>
+    
+
+    <script>
+        $.ajax({
+            type: 'GET',
+            dataType: 'jsonp',
+            url: 'https://api.douban.com/v2/book/search',
+            data: {
+                q: '小王子',
+                start: 0,
+                count: 10
+            },
+            success: function(data) {
+                page(data);
+            },
+            error: function() {
+                console.log('erro');
+            }
+        })
+        function page(data) {
+            var data = data.books;
+            var $resultContent = $('.result-content');
+            data.forEach(function (datum, index) {
+                var $rpic = $('<div class="r-pic"><a href="#" class="nbg"><img src="' + datum.images.small + '"></a></div>');
+                var $h3 = $('<h3><span>[书籍]<span><a href="' + datum.alt + '">' + datum.title + '</a></h3>');
+                var $spans = $('<span class="allstar"></span><span class="rating-num">' + datum.rating.average + '</span><span>' + datum.rating.numRaters + '</span><span class="subjuect-cast">' + datum.author[0] + '/' + datum.publisher + '/' + datum.pubdate + '</span>');
+                var $intruduction = $('<p>"' + datum.summary + '"</p>')
+                var $ratingInfo = $('<div class="rating-info"></div>');
+                var $title = $('<div class="title"><div>');
+                    $ratingInfo.append($spans);
+                    $title.append($h3).append($ratingInfo);
+                var $rContent = $('<div class="r-content"></div>');
+                var $result = $('<div class="result"></div>');
+                    $rContent.append($title).append($intruduction);
+                $result.append($rpic).append($rContent).appendTo($resultContent);
+                $('.allstar').eq(index).css({
+                    backgroundPositionX: 0,
+                    backgroundPositionY: -((10 - parseInt(datum.rating.average)) * 11),
+                })
+            });
+        }
+            var $submit = $('.submit-a');
+            var info = $('#inp-query');
+
+            info.on('keypress', function () {
+                if(event.keyCode == 13) {
+                    $submit.trigger('click');
+                }
+            })
+            $('.inp-zxc').on('keypress',function(){
+                if(event.keyCode == 13) {
+                    $('.inp-btn').trigger('click');
+                }
+            })
+        var i = 0,
+            j = 9;
+        $submit.on('click',function(){
+            i = 0,
+            j = 9;
+            var content = info.prop('value');
+            $.ajax({
+                type: 'GET',
+                dataType: 'jsonp',
+                url: 'https://api.douban.com/v2/book/search',
+                data: {
+                    q: content,
+                    start: i,
+                    count: j
+                },
+                success: function(data) {
+                    $('.result-content').text('')
+                    page(data);
+                },
+                error: function() {
+                    console.log('erro');
+                }
+            })
+            $('.inp-zxc').prop('value', content);
+            $('.new-icon').text(content);
+            $('.add').text('关于' + content +'的精彩内容');
+        })
+        $('.inp-btn').on('click',function(){
+            i = 0,
+            j = 9;
+            var content = $('.inp-zxc').prop('value');
+            $.ajax({
+                type: 'GET',
+                dataType: 'jsonp',
+                url: 'https://api.douban.com/v2/book/search',
+                data: {
+                    q: content,
+                    start: i,
+                    count: j
+                },
+                success: function(data) {
+                    $('.result-content').text('')
+                    page(data);
+                },
+
+                error: function() {
+                    console.log('erro');
+                }
+            })
+            info.prop('value', content);
+            $('.new-icon').text(content);
+            $('.add').text('关于' + content +'的精彩内容');
+        })
+        $('.search_more').on('click',function(){
+            var content = info.prop('value');
+            $.ajax({
+                type: 'GET',
+                dataType: 'jsonp',
+                url: 'https://api.douban.com/v2/book/search',
+                data: {
+                    q: content,
+                    start: i += 10,
+                    count: j += 10
+                },
+                success: function(data) {
+                    $('.result-content').text('')
+                    page(data);
+                },
+
+                error: function() {
+                    console.log('erro');
+                }
+            })
+        })
+
+    </script>
+</body>
+</html>
